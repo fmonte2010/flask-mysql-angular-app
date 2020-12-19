@@ -11,8 +11,18 @@ from werkzeug.utils import secure_filename
 UPLOAD_FOLDER = "./uploads"
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif"}
 
+#filter mime-types
+def allowed_files(filename):
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
 app = Flask(__name__)
+
+@app.route("/api/posts", methods=["GET"])
+def index():
+    if request.method == "GET":
+        return jsonify(data="Posts main response")
+
 
 if __name__ == "__main__":
     app.run(debug=True)
-    
